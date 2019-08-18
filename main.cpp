@@ -15,7 +15,40 @@ class Records {
 };
 
 void Add() {
-	cout << "Add function";
+	string newRecord[4];
+	//input the data into a string array
+	cout << "To add a record you must enter the Name, Address, Balance and ID of the account:" << "\n\n";
+	cout << "Please enter the Name of the account" << "\n";
+	cin.ignore(); // this makes sure that the cin function will include spaces when putting data into the array
+	getline(cin, newRecord[0]);
+	cout << "Please enter the Address of the account: " << "\n";
+	getline(cin, newRecord[1]);
+	cout << "Please enter the balance of the account: " << "\n";
+	cin >> newRecord[2];
+	cout << "Please enter the 4 digit ID of the account: " << "\n";
+	cin >> newRecord[3];
+
+	cout << "||  Name,  Address,  Balance,  ID  ||" << "\n";
+	cout << "-------------------------------------" << "\n";
+	for (int i = 0; i < (sizeof(newRecord)/sizeof(*newRecord)); i++) {
+		cout << newRecord[i] << ", ";
+	}
+	cout << "\n" << "-------------------------------------" << "\n\n";
+	int ans;
+	cout << "Here are the details to add to the record, are these correct or would you like to input them again? Input again(1) or continue(2):" << "\n\n";
+	cin >> ans;
+	if(ans == 1) {
+		Add();
+	} else if (ans == 2) {
+		// opens the file in apped mode, adds all elements of the array into a string then adds the string onto the end of the file.
+		string input;
+		input =  newRecord[0] + "," + newRecord[1] + "," + newRecord[2] + "," + newRecord[3];
+		fstream file;
+		file.open("test.csv", ios::app);
+		file << input << endl;
+
+		cout << "You have successfully added the account to the file." << "\n";
+	}
 }
 
 void Delete() {
@@ -122,7 +155,7 @@ int main() {
 	cout << "Please select which operation you would like to perform: " << "\n\n";
 	cout << "1. View all records." << "\n";
 	cout << "2. Edit a specific record." << "\n";
-	cout << "3. Delete a specific record." << "\n\n";
+	cout << "3. Delete a specific record." << "\n";
 	cout << "4. Add a record." << "\n\n";
 	cin >> operation;
 	cout << "\n\n";
