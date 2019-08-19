@@ -51,8 +51,11 @@ void Add() {
 	}
 }
 
-void Delete() {
-	cout << "Delete function";
+void Delete(vector<string> lines) {
+
+	string deleteID;
+	cout << "Please enter the ID of the account you would like to delete: " << "\n\n";
+	cin >> deleteID;
 }
 
 void Edit() {
@@ -72,7 +75,7 @@ void View(vector<string> lines) {
 	int count = 0;
 
 	// this loop will split each record in the array into name, address, balance and ID, and then store it in the bankRecords array
-	for (int i = 0; i < (sizeof(records)/sizeof(*records)); i++) {
+	for (int i = 0; i < (sizeof(bankRecords)/sizeof(*bankRecords)); i++) {
 		sTmp = records[i];
 		stringstream ss(sTmp);
 		vector<string> result;
@@ -89,7 +92,7 @@ void View(vector<string> lines) {
 			bankRecords[count].Address = arrTmp[1];
 			bankRecords[count].Balance = stod(arrTmp[2]);
 			bankRecords[count].ID =	stoi(arrTmp[3]);
-			if (count == 3) {
+			if (count == (sizeof(bankRecords)/sizeof(*bankRecords) - 1)) {
 				break;
 			}
 			count++;
@@ -102,7 +105,7 @@ void View(vector<string> lines) {
 	cout << "-----------------------------------------------" << "\n\n";
 	cout << "Name | " << "Address | " << "Balance | " << "ID" << "\n";
 	cout << "-----------------------------------------------" << "\n\n";
-	for (int j = 0; j < 3; j++) {
+	for (int j = 0; j < (sizeof(bankRecords)/sizeof(*bankRecords) - 1); j++) {
 		cout << bankRecords[j].Name << " | ";
 		cout << bankRecords[j].Address << " | ";
 		cout << bankRecords[j].Balance << " | ";
@@ -128,6 +131,7 @@ void Open(int op) {
              break;
         }
     }
+
 	//checks which operation was chosen then calls that specific function
 	switch(op) {
 	case 1:
@@ -137,7 +141,7 @@ void Open(int op) {
 		Edit();
 		break;
 	case 3:
-		Delete();
+		Delete(lines);
 		break;
 	case 4:
 		Add();
