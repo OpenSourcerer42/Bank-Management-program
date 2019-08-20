@@ -46,9 +46,10 @@ void Add() {
 		fstream file;
 		file.open("test.csv", ios::app);
 		file << input << endl;
-
+		file.close();
 		cout << "You have successfully added the account to the file." << "\n";
 	}
+	
 }
 
 void Delete(vector<string> lines) {
@@ -92,11 +93,48 @@ void Delete(vector<string> lines) {
 	for (int k = 1; k < (sizeof(newRecords)/sizeof(*newRecords) - 2); k++) {
 		file << newRecords[k] << "\n";
 	}
+	file.close();
 	cout << "The record has successfully been deleted." << "\n";
 }
 
-void Edit() {
-	cout << "Edit function";
+void Edit(vector<string> lines) {
+	string records[lines.size()];
+	copy(lines.begin(), lines.end(), records);
+
+	string editID, tmp;
+	int posToEdit;
+	cout << "Enter the ID of the account you would like to edit: " << "\n\n";
+	cin >> editID;
+
+	//find the position in the array of the element that was selected for editing
+	for (int i = 0; i < lines.size(); i++) {
+		tmp = records[i];
+		if (tmp.find(editID) != string::npos) {
+			cout << "String found at: " << "position " << i << "\n";
+			cout << tmp << "\n";
+			posToEdit = i;
+			break;
+		}
+	}
+	string editedRecord;
+
+	cout << "Please the new name, address, balance and ID for the chosen account: " << "\n";
+	cout << "format = NAME,ADDRESS,BALANCE,ID" << "\n";
+	cin.ignore();
+	getline(cin, editedRecord);
+	records[posToEdit] = editedRecord;
+
+	fstream file;
+	file.open("test.csv", ios::out);
+	file << "Name,Address,Balance,ID" << "\n";
+	file.close();
+	//opens in append mode and loops through the array adding in each element, excluding the title line and the empty line at the end of the array.
+	file.open("test.csv", ios::app);
+	for (int j = 1; j < (sizeof(records)/sizeof(*records) - 1); j++) {
+		file << records[j] << "\n";
+	}
+	file.close();
+	cout << "The specified record has successfully been changed." << "\n";
 }
 
 
@@ -175,7 +213,7 @@ void Open(int op) {
 		View(lines);
 		break;
 	case 2:
-		Edit();
+		Edit(lines);
 		break;
 	case 3:
 		Delete(lines);
