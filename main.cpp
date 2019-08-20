@@ -52,10 +52,47 @@ void Add() {
 }
 
 void Delete(vector<string> lines) {
+	//I need to check whether the ID is in a string element, if the ID is found, 
+	//that element will then be deleted and the csv file will be overwritten with the new array
+	string oldRecords[lines.size()];
+	string newRecords[lines.size()];
+	copy(lines.begin(), lines.end(), oldRecords);
 
-	string deleteID;
+	string deleteID, tmp;
+	int posToDel;
 	cout << "Please enter the ID of the account you would like to delete: " << "\n\n";
 	cin >> deleteID;
+	//find the position in the array of the element that was selected for deletion
+	for (int i = 0; i < lines.size(); i++) {
+		tmp = oldRecords[i];
+		if (tmp.find(deleteID) != string::npos) {
+			cout << "String found at: " << "position " << i << "\n";
+			posToDel = i;
+			break;
+		}
+	}
+	//this loop will add the all the elements from the old array into the new array but will not add the element that was selected by the user to delete
+	for (int j = 0; j < lines.size(); j++) {
+		if (j != posToDel) {
+			newRecords[j] = oldRecords[j];
+		} else if (j == posToDel) {
+			
+		}
+	}
+	//this code removes the empty array by copying the next element into the empty element
+	newRecords[posToDel] = newRecords[posToDel + 1];
+	newRecords[posToDel + 1] = "";
+	//this overwrites the file and leaves the title line in at the top
+	fstream file;
+	file.open("test.csv", ios::out);
+	file << "Name,Address,Balance,ID" << "\n";
+	file.close();
+	//opens in append mode and loops through the array adding in each element, excluding the title line and the empty line at the end of the array.
+	file.open("test.csv", ios::app);
+	for (int k = 1; k < (sizeof(newRecords)/sizeof(*newRecords) - 2); k++) {
+		file << newRecords[k] << "\n";
+	}
+	cout << "The record has successfully been deleted." << "\n";
 }
 
 void Edit() {
