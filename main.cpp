@@ -49,7 +49,15 @@ void Add() {
 		file.close();
 		cout << "You have successfully added the account to the file." << "\n";
 	}
-	
+	int ans;
+	cout << "would you like to perform any other operation, Yes(1) or No(2): " << "\n";
+	cin >> ans;
+
+	if (ans == 1 ) {
+		main();
+	} else if (ans == 2) {
+		return;
+	}
 }
 
 void Delete(vector<string> lines) {
@@ -95,6 +103,16 @@ void Delete(vector<string> lines) {
 	}
 	file.close();
 	cout << "The record has successfully been deleted." << "\n";
+
+	int ans;
+	cout << "would you like to perform any other operation, Yes(1) or No(2): " << "\n";
+	cin >> ans;
+
+	if (ans == 1 ) {
+		main();
+	} else if (ans == 2) {
+		return;
+	}
 }
 
 void Edit(vector<string> lines) {
@@ -135,6 +153,16 @@ void Edit(vector<string> lines) {
 	}
 	file.close();
 	cout << "The specified record has successfully been changed." << "\n";
+
+	int ans;
+	cout << "would you like to perform any other operation, Yes(1) or No(2): " << "\n";
+	cin >> ans;
+
+	if (ans == 1 ) {
+		main();
+	} else if (ans == 2) {
+		return;
+	}
 }
 
 
@@ -187,6 +215,16 @@ void View(vector<string> lines) {
 		cout << bankRecords[j].ID << "\n";
 		cout << "-----------------------------------------------" << "\n";
 		cout << "\n\n";
+	}
+	
+	int ans;
+	cout << "would you like to perform any other operation, Yes(1) or No(2): " << "\n";
+	cin >> ans;
+
+	if (ans == 1 ) {
+		main();
+	} else if (ans == 2) {
+		return;
 	}
 }
 
